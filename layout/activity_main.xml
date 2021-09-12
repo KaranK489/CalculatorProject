@@ -7,6 +7,55 @@
     android:background="#000000"
     tools:context=".MainActivity">
 
+    <!--    android:visibility="gone"-->
+
+    <Button
+        android:id="@+id/buttonEasy"
+        android:layout_width="91dp"
+        android:layout_height="37dp"
+        android:background="@drawable/main_custom_button"
+        android:text="EASY"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.175"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.488"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/buttonHard"
+        android:layout_width="91dp"
+        android:layout_height="37dp"
+        android:background="@drawable/main_custom_button"
+        android:text="HARD"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.825"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.488"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/buttonMedium"
+        android:layout_width="91dp"
+        android:layout_height="37dp"
+        android:background="@drawable/main_custom_button"
+        android:text="MEDIUM"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.488"
+        android:visibility="gone"/>
+
     <Button
         android:id="@+id/mainButton"
         android:layout_width="wrap_content"
@@ -19,6 +68,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.573"
         android:visibility="gone"/>
 
     <Button
