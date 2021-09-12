@@ -43,6 +43,7 @@ public class LevelOneActivity extends AppCompatActivity implements View.OnClickL
     private int goalFourClick = 6;
     private int goalFiveClick = 3;
 
+    int diff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

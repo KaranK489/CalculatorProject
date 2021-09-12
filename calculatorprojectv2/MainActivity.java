@@ -13,8 +13,11 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button mainButton, nextButton;
+    Button mainButton, nextButton, buttonEasy, buttonMedium, buttonHard;
     TextView instructionsLabel;
+
+    //0,1,2
+    int difficulty = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
         mainButton = (Button) findViewById(R.id.mainButton);
         nextButton = (Button) findViewById(R.id.nextButton);
+        buttonEasy = (Button) findViewById(R.id.buttonEasy);
+        buttonMedium = (Button) findViewById(R.id.buttonMedium);
+        buttonHard = (Button) findViewById(R.id.buttonHard);
 
         instructionsLabel = (TextView) findViewById(R.id.instructionLabelOne);
 
@@ -35,7 +41,11 @@ public class MainActivity extends AppCompatActivity {
         mainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openLevelOne();
+                if (difficulty>0){
+                    openLevelOne();
+                } else {
+                    instructionsLabel.setText("Please select a difficulty");
+                }
             }
         });
 
@@ -56,11 +66,38 @@ public class MainActivity extends AppCompatActivity {
                     instructionsLabel.setText("Your goal, is to get to the goal number, while staying under the button click limit");
                 } else if (stage[0] == 6){
                     nextButton.setVisibility(View.GONE);
-                    instructionsLabel.setText("Press the Play Button to Start!");
+                    instructionsLabel.setText("Select Difficulty, Press play to start!");
                     mainButton.setVisibility(View.VISIBLE);
+                    buttonEasy.setVisibility(View.VISIBLE);
+                    buttonMedium.setVisibility(View.VISIBLE);
+                    buttonHard.setVisibility(View.VISIBLE);
                 }
 
                 stage[0]++;
+            }
+        });
+
+        buttonEasy.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                difficulty = 0;
+                instructionsLabel.setText("Easy mode selected");
+            }
+        });
+
+        buttonEasy.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                difficulty = 1;
+                instructionsLabel.setText("Medium mode selected");
+            }
+        });
+
+        buttonEasy.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                difficulty = 2;
+                instructionsLabel.setText("Hard mode selected");
             }
         });
     }
@@ -82,6 +119,10 @@ public class MainActivity extends AppCompatActivity {
     public void openLevelOne(){
         Intent intent = new Intent(this, LevelOneActivity.class);
         startActivity(intent);
+    }
+
+    public int getDifficulty(){
+        return difficulty;
     }
 
 }
