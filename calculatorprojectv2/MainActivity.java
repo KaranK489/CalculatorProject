@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        buttonEasy.setOnClickListener(new View.OnClickListener(){
+        buttonMedium.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 difficulty = 1;
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        buttonEasy.setOnClickListener(new View.OnClickListener(){
+        buttonHard.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 difficulty = 2;
