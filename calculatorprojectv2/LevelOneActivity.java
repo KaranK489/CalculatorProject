@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class LevelOneActivity extends AppCompatActivity implements View.OnClickListener{
     TextView display, goalDisplay, buttonClickCounter, constraintDisplay, levelDisplay; //add a TextView for the number that the use has to reach
-    Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnAdd, btnSubtract, btnMultiply, btnDivide, btnCalculate, btn0, btnDecimal, btnNegative;
+    Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnAdd, btnSubtract, btnMultiply, btnDivide, btnCalculate, btn0, btnDecimal, btnNegative, btnClear;
 
     private int clickCounter = 0;
     private int totalClicks = 0;
@@ -78,6 +78,7 @@ public class LevelOneActivity extends AppCompatActivity implements View.OnClickL
         btn0 = (Button) findViewById(R.id.buttonZero);
         btnDecimal = (Button) findViewById(R.id.buttonDecimal);
         btnNegative = (Button) findViewById(R.id.buttonNegative);
+        btnClear = (Button) findViewById(R.id.buttonClear);
 
         //^^ The numerical calculator buttons
 
@@ -95,6 +96,18 @@ public class LevelOneActivity extends AppCompatActivity implements View.OnClickL
         btnMultiply.setOnClickListener(this);
         btnDivide.setOnClickListener(this);
         btnCalculate.setOnClickListener(this);
+
+
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayLabel = "";
+                display.setText(displayLabel);
+
+
+            }
+        });
+
         //^^ For the Click Listener for the Button
 
         display = (TextView) findViewById(R.id.display);
@@ -111,7 +124,7 @@ public class LevelOneActivity extends AppCompatActivity implements View.OnClickL
         allStages.add(new Stage(267, 6));
         allStages.add(new Stage(12, 3));
 
-        System.out.println(allStages.size() + "AKKAKAKAKAK");
+
 
         setStuff();
     }
@@ -242,6 +255,7 @@ public class LevelOneActivity extends AppCompatActivity implements View.OnClickL
         Expression exp = new Expression(expEval);
 
         String resultS = String.valueOf(exp.calculate());
+
         double result = Double.parseDouble(resultS);
 
             if (result == allStages.get(currentStage).getGoal()){
