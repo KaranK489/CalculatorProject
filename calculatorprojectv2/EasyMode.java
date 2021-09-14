@@ -13,13 +13,15 @@ import org.mariuszgromada.math.mxparser.*;
 
 import java.util.ArrayList;
 
-public class LevelOneActivity extends AppCompatActivity implements View.OnClickListener{
-    TextView display, goalDisplay, buttonClickCounter, constraintDisplay, levelDisplay; //add a TextView for the number that the use has to reach
+public class EasyMode extends AppCompatActivity{
+    TextView txtViewDisplay, txtViewGoal, txtViewClickCounter, txtViewTotalClicks, txtViewLevel, txtViewPoints; //add a TextView for the number that the use has to reach
     Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnAdd, btnSubtract, btnMultiply, btnDivide, btnCalculate, btn0, btnDecimal, btnNegative, btnClear;
 
     private int clickCounter = 0;
     private int totalClicks = 0;
     private String displayLabel = "";
+
+    private int points = 0;
 
 
     //FROM 0-4, TO MATCH WITH ALLSTAGES ARRAYLIST (CHANGE LATER MAYBE IDK, BUT EASIER TO MATCH WITH ARRAYLIST FOR NOW)
@@ -31,7 +33,7 @@ public class LevelOneActivity extends AppCompatActivity implements View.OnClickL
     CharSequence keystrokeOver;
     CharSequence sillyGoose;
     int duration;
-    Toast toast;
+
     Toast fgd;
     Context contextTwo;
     CharSequence textOver;
@@ -46,20 +48,20 @@ public class LevelOneActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_level_one);
 
         context = getApplicationContext();
-        keystrokeOver = "Too many Button Presses!";
+
         sillyGoose = "I said Addition you silly goose :)";
         duration = Toast.LENGTH_SHORT;
 
-        toast = Toast.makeText(context, keystrokeOver, duration);
+
         fgd = Toast.makeText(context, sillyGoose, duration);
 
-        contextTwo = getApplicationContext();
+
         textOver = "Goal Overshot!";
         textUnder = "Goal Undershot!";
-        durationTwo = Toast.LENGTH_SHORT;
 
-        underShot = Toast.makeText(contextTwo, textUnder, durationTwo);
-        overShot = Toast.makeText(contextTwo, textOver, durationTwo);
+
+        underShot = Toast.makeText(context, textUnder, duration);
+        overShot = Toast.makeText(context, textOver, duration);
 
         btn1 = (Button) findViewById(R.id.buttonOne);
         btn2 = (Button) findViewById(R.id.buttonTwo);
@@ -82,40 +84,145 @@ public class LevelOneActivity extends AppCompatActivity implements View.OnClickL
 
         //^^ The numerical calculator buttons
 
-        btn1.setOnClickListener(this);
-        btn2.setOnClickListener(this);
-        btn3.setOnClickListener(this);
-        btn4.setOnClickListener(this);
-        btn5.setOnClickListener(this);
-        btn6.setOnClickListener(this);
-        btn7.setOnClickListener(this);
-        btn8.setOnClickListener(this);
-        btn9.setOnClickListener(this);
-        btnAdd.setOnClickListener(this);
-        btnSubtract.setOnClickListener(this);
-        btnMultiply.setOnClickListener(this);
-        btnDivide.setOnClickListener(this);
-        btnCalculate.setOnClickListener(this);
 
+
+        //^^ For the Click Listener for the Button
+
+        txtViewDisplay = (TextView) findViewById(R.id.display);
+        txtViewGoal = (TextView) findViewById((R.id.goalDisplay));
+        txtViewClickCounter = (TextView) findViewById(R.id.buttonClickCounter);
+        txtViewTotalClicks = (TextView) findViewById(R.id.constraintDisplay);
+        txtViewLevel = (TextView) findViewById(R.id.levelLabel);
+        txtViewPoints = (TextView) findViewById(R.id.pointsDisplay);
+        //^^ Sets the Displays
+
+        txtViewPoints.setText("Points: " + points);
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonClick("1");
+
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonClick("2");
+
+            }
+        });
+
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonClick("3");
+
+            }
+        });
+
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonClick("4");
+
+            }
+        });
+
+        btn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonClick("5");
+
+            }
+        });
+
+        btn6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonClick("6");
+
+            }
+        });
+
+        btn7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonClick("7");
+
+            }
+        });
+
+        btn8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonClick("8");
+
+            }
+        });
+
+        btn9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonClick("9");
+
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonClick("+");
+
+            }
+        });
+
+        btnSubtract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonClick("-");
+
+            }
+        });
+
+        btnMultiply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonClick("×");
+
+            }
+        });
+
+        btnDivide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonClick("÷");
+
+            }
+        });
+
+        btnCalculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calculateResult();
+
+            }
+        });
 
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 displayLabel = "";
-                display.setText(displayLabel);
+                txtViewDisplay.setText(displayLabel);
+                totalClicks = allStages.get(currentStage).getClicks();
+                clickCounter = 0;
 
-
+                txtViewClickCounter.setText("Clicks Left: " + totalClicks);
             }
         });
 
-        //^^ For the Click Listener for the Button
 
-        display = (TextView) findViewById(R.id.display);
-        goalDisplay = (TextView) findViewById((R.id.goalDisplay));
-        buttonClickCounter = (TextView) findViewById(R.id.buttonClickCounter);
-        constraintDisplay = (TextView) findViewById(R.id.constraintDisplay);
-        levelDisplay = (TextView) findViewById(R.id.levelLabel);
-        //^^ Sets the Displays
 
 
         allStages.add(new Stage(64, 3));
@@ -132,21 +239,21 @@ public class LevelOneActivity extends AppCompatActivity implements View.OnClickL
     private void setStuff(){
         clickCounter = 0;
         currentStage++;
-        levelDisplay.setText("Stage: " + currentStage);
+        txtViewLevel.setText("Stage: " + (currentStage+1));
         totalClicks = allStages.get(currentStage).getClicks();
-        goalDisplay.setText("Goal: " + allStages.get(currentStage).getGoal());
+        txtViewGoal.setText("Goal: " + allStages.get(currentStage).getGoal());
         displayLabel = "";
-        constraintDisplay.setText("Total Clicks: " + clickCounter);
-        buttonClickCounter.setText("Clicks Left: " + totalClicks);
+        txtViewTotalClicks.setText("Total Clicks: " + totalClicks);
+        txtViewClickCounter.setText("Clicks Left: " + totalClicks);
     }
 
     private void finishScreen(){
         displayLabel = "";
-        display.setText("You Beat the Game!");
-        constraintDisplay.setVisibility(View.GONE);
-        goalDisplay.setVisibility(View.GONE);
-        buttonClickCounter.setVisibility(View.GONE);
-        levelDisplay.setVisibility(View.GONE);
+        txtViewDisplay.setText("You Beat the Game!");
+        txtViewTotalClicks.setVisibility(View.GONE);
+        txtViewGoal.setVisibility(View.GONE);
+        txtViewClickCounter.setVisibility(View.GONE);
+        txtViewLevel.setVisibility(View.GONE);
 
         btn1.setVisibility(View.GONE);
         btn2.setVisibility(View.GONE);
@@ -168,89 +275,42 @@ public class LevelOneActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void buttonClick(String symbol){
-        clickCounter++;
-        buttonClickCounter.setText("Clicks Left: " + (totalClicks - clickCounter));
-        displayLabel = displayLabel.concat(symbol);
-        display.setText(displayLabel);
 
-        if (clickCounter > allStages.get(currentStage).getClicks()){
-            toast.show();
-            displayLabel = "";
-            display.setText(displayLabel);
-            clickCounter = 0;
-            buttonClickCounter.setText("Button Clicks: " + clickCounter);
+
+        if (clickCounter >= totalClicks){
+            Toast.makeText(context, "Out of Clicks!", Toast.LENGTH_SHORT).show();
+
+//            displayLabel = "";
+//            txtViewDisplay.setText(displayLabel);
+
+        } else {
+
+            clickCounter++;
+            txtViewClickCounter.setText("Clicks Left: " + (totalClicks - clickCounter));
+            displayLabel = displayLabel.concat(symbol);
+            txtViewDisplay.setText(displayLabel);
+
         }
     }
 
-    @Override
-    public void onClick(View view) {
 
-        switch (view.getId()){
-
-            case R.id.buttonOne:
-                buttonClick("1");
-                break;
-
-            case R.id.buttonTwo:
-                buttonClick("2");
-                break;
-
-            case R.id.buttonThree:
-                buttonClick("3");
-                break;
-
-            case R.id.buttonFour:
-                buttonClick("4");
-                break;
-
-            case R.id.buttonFive:
-                buttonClick("5");
-                break;
-
-            case R.id.buttonSix:
-                buttonClick("6");
-                break;
-
-            case R.id.buttonSeven:
-                buttonClick("7");
-                break;
-
-            case R.id.buttonEight:
-                buttonClick("8");
-                break;
-
-            case R.id.buttonNine:
-                buttonClick("9");
-                break;
-
-            case R.id.buttonAdd:
-                buttonClick("+");
-
-                break;
-            case R.id.buttonSubtract:
-                buttonClick("-");
-
-                break;
-            case R.id.buttonMultiply:
-                buttonClick("×");
-
-                break;
-            case R.id.buttonDivide:
-                buttonClick("÷");
-
-                break;
-            case R.id.buttonCalculate:
-                calculateResult();
-        }
-    }
 
 
     public void calculateResult(){
 
-        String expEval = display.getText().toString();
+        String expEval = txtViewDisplay.getText().toString();
 
         expEval = expEval.replaceAll("×", "*");
         expEval = expEval.replaceAll("÷", "/");
+
+        String onlyDigits = expEval;
+        onlyDigits = onlyDigits.replaceAll("'\\+'", "");
+        onlyDigits = onlyDigits.replaceAll("-", "");
+        onlyDigits = onlyDigits.replaceAll("\\*", "");
+        onlyDigits = onlyDigits.replaceAll("'/'", "");
+
+
+        System.out.println(onlyDigits);
 
         Expression exp = new Expression(expEval);
 
@@ -258,30 +318,41 @@ public class LevelOneActivity extends AppCompatActivity implements View.OnClickL
 
         double result = Double.parseDouble(resultS);
 
-            if (result == allStages.get(currentStage).getGoal()){
+            if (result == allStages.get(currentStage).getGoal() && result != Double.parseDouble(onlyDigits)) {
                 allStages.get(currentStage).setAchievedGoal(true);
-                if (currentStage<4){
+                if (currentStage < 4) {
                     setStuff();
+                    Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT).show();
+                    points+=currentStage+1;
+                    txtViewPoints.setText("Points: " + points);
                 } else {
                     finishScreen();
-
                 }
 
+//            } else if (result == Double.parseDouble(expEval)){
+//                Toast.makeText(context, "That's the same number!", Toast.LENGTH_SHORT).show();
+//
+//            }
             } else {
+
                 if (result > allStages.get(currentStage).getGoal()){
                     overShot.show();
-                } else {
+                } else if (result < allStages.get(currentStage).getGoal()){
                     underShot.show();
+                } else {
+                    Toast.makeText(context, "That's the same number!", Toast.LENGTH_SHORT).show();
                 }
 
                 displayLabel = "";
                 clickCounter = 0;
+                points--;
+                txtViewPoints.setText("Points: " + points);
 
             }
 
             if (!allStages.get(4).getAchievedGoal()){
-                display.setText(displayLabel);
-                buttonClickCounter.setText("Clicks Left: " + (totalClicks - clickCounter));
+                txtViewDisplay.setText(displayLabel);
+                txtViewClickCounter.setText("Clicks Left: " + (totalClicks - clickCounter));
 
             }
     }

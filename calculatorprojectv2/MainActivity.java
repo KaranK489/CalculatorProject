@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -36,15 +34,19 @@ public class MainActivity extends AppCompatActivity {
 
         instructionsLabel = (TextView) findViewById(R.id.instructionLabelOne);
 
-        final int[] stage = {0};
+
 
         mainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (difficulty>0){
-                    openLevelOne();
-                } else {
+                if (difficulty==-1){
                     instructionsLabel.setText("Please select a difficulty");
+                } else if (difficulty == 0){
+                    openEasyMode();
+                } else if (difficulty == 1){
+//                    openMediumMode();
+                } else{
+//                    openHardMode();
                 }
             }
         });
@@ -60,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
                     buttonMedium.setVisibility(View.VISIBLE);
                     buttonHard.setVisibility(View.VISIBLE);
 
-
-//                stage[0]++;
             }
         });
 
@@ -104,10 +104,20 @@ public class MainActivity extends AppCompatActivity {
     }
     //^^ Fade animation (play around with later)
 
-    public void openLevelOne(){
-        Intent intent = new Intent(this, LevelOneActivity.class);
+    public void openEasyMode(){
+        Intent intent = new Intent(this, EasyMode.class);
         startActivity(intent);
     }
+
+//    public void openMediumMode(){
+//        Intent intent = new Intent(this, MediumMode.class);
+//        startActivity(intent);
+//    }
+//
+//    public void openHardMode(){
+//        Intent intent = new Intent(this, HardMode.class);
+//        startActivity(intent);
+//    }
 
     public int getDifficulty(){
         return difficulty;
