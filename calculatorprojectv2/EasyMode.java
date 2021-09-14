@@ -1,8 +1,10 @@
 package com.example.calculatorprojectv2;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,9 +15,9 @@ import org.mariuszgromada.math.mxparser.*;
 
 import java.util.ArrayList;
 
-public class EasyMode extends AppCompatActivity{
+public class EasyMode extends AppCompatActivity {
     TextView txtViewDisplay, txtViewGoal, txtViewClickCounter, txtViewTotalClicks, txtViewLevel, txtViewPoints; //add a TextView for the number that the use has to reach
-    Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnAdd, btnSubtract, btnMultiply, btnDivide, btnCalculate, btn0, btnDecimal, btnNegative, btnClear;
+    Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnAdd, btnSubtract, btnMultiply, btnDivide, btnCalculate, btn0, btnDecimal, btnNegative, btnClear, btnShop;
 
     private int clickCounter = 0;
     private int totalClicks = 0;
@@ -29,7 +31,8 @@ public class EasyMode extends AppCompatActivity{
 
     ArrayList<Stage> allStages = new ArrayList<>();
 
-    Context context;;
+    Context context;
+    ;
     CharSequence keystrokeOver;
     CharSequence sillyGoose;
     int duration;
@@ -42,10 +45,12 @@ public class EasyMode extends AppCompatActivity{
     Toast underShot;
     Toast overShot;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_one);
+
 
         context = getApplicationContext();
 
@@ -81,9 +86,9 @@ public class EasyMode extends AppCompatActivity{
         btnDecimal = (Button) findViewById(R.id.buttonDecimal);
         btnNegative = (Button) findViewById(R.id.buttonNegative);
         btnClear = (Button) findViewById(R.id.buttonClear);
+        btnShop = (Button) findViewById(R.id.buttonShop);
 
         //^^ The numerical calculator buttons
-
 
 
         //^^ For the Click Listener for the Button
@@ -97,6 +102,7 @@ public class EasyMode extends AppCompatActivity{
         //^^ Sets the Displays
 
         txtViewPoints.setText("Points: " + points);
+
 
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,8 +227,15 @@ public class EasyMode extends AppCompatActivity{
                 txtViewClickCounter.setText("Clicks Left: " + totalClicks);
             }
         });
-
-
+        btnShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent shop = new Intent(EasyMode.this, Shop.class);
+                shop.putExtra("Points", points);
+                shop.putExtra("Current Stage", currentStage);
+                startActivity(shop);
+            }
+        });
 
 
         allStages.add(new Stage(64, 3));
@@ -231,15 +244,23 @@ public class EasyMode extends AppCompatActivity{
         allStages.add(new Stage(267, 6));
         allStages.add(new Stage(12, 3));
 
-
+        currentStage++;
 
         setStuff();
-    }
+        Intent getShopValues = getIntent();
+        reSetUIValues(getShopValues.getIntExtra("Points", 0), getShopValues.getIntExtra("Current Stage", 0));
 
-    private void setStuff(){
+    }
+    private void reSetUIValues(int Points, int curStage){
+        points = Points;
+        currentStage = curStage;
+        txtViewPoints.setText("Points: " + points);
+        setStuff();
+
+    }
+    private void setStuff() {
         clickCounter = 0;
-        currentStage++;
-        txtViewLevel.setText("Stage: " + (currentStage+1));
+        txtViewLevel.setText("Stage: " + (currentStage + 1));
         totalClicks = allStages.get(currentStage).getClicks();
         txtViewGoal.setText("Goal: " + allStages.get(currentStage).getGoal());
         displayLabel = "";
@@ -247,7 +268,7 @@ public class EasyMode extends AppCompatActivity{
         txtViewClickCounter.setText("Clicks Left: " + totalClicks);
     }
 
-    private void finishScreen(){
+    private void finishScreen() {
         displayLabel = "";
         txtViewDisplay.setText("You Beat the Game!");
         txtViewTotalClicks.setVisibility(View.GONE);
@@ -274,10 +295,10 @@ public class EasyMode extends AppCompatActivity{
         btnNegative.setVisibility(View.GONE);
     }
 
-    public void buttonClick(String symbol){
+    public void buttonClick(String symbol) {
 
 
-        if (clickCounter >= totalClicks){
+        if (clickCounter >= totalClicks) {
             Toast.makeText(context, "Out of Clicks!", Toast.LENGTH_SHORT).show();
 
 //            displayLabel = "";
@@ -294,9 +315,7 @@ public class EasyMode extends AppCompatActivity{
     }
 
 
-
-
-    public void calculateResult(){
+    public void calculateResult() {
 
         String expEval = txtViewDisplay.getText().toString();
 
@@ -318,42 +337,43 @@ public class EasyMode extends AppCompatActivity{
 
         double result = Double.parseDouble(resultS);
 
-            if (result == allStages.get(currentStage).getGoal() && result != Double.parseDouble(onlyDigits)) {
-                allStages.get(currentStage).setAchievedGoal(true);
-                if (currentStage < 4) {
-                    setStuff();
-                    Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT).show();
-                    points+=currentStage+1;
-                    txtViewPoints.setText("Points: " + points);
-                } else {
-                    finishScreen();
-                }
+        if (result == allStages.get(currentStage).getGoal() && result != Double.parseDouble(onlyDigits)) {
+            allStages.get(currentStage).setAchievedGoal(true);
+            if (currentStage < 4) {
+                currentStage++;
+                setStuff();
+                Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT).show();
+                points += currentStage + 1;
+                txtViewPoints.setText("Points: " + points);
+            } else {
+                finishScreen();
+            }
 
 //            } else if (result == Double.parseDouble(expEval)){
 //                Toast.makeText(context, "That's the same number!", Toast.LENGTH_SHORT).show();
 //
 //            }
+        } else {
+
+            if (result > allStages.get(currentStage).getGoal()) {
+                overShot.show();
+            } else if (result < allStages.get(currentStage).getGoal()) {
+                underShot.show();
             } else {
-
-                if (result > allStages.get(currentStage).getGoal()){
-                    overShot.show();
-                } else if (result < allStages.get(currentStage).getGoal()){
-                    underShot.show();
-                } else {
-                    Toast.makeText(context, "That's the same number!", Toast.LENGTH_SHORT).show();
-                }
-
-                displayLabel = "";
-                clickCounter = 0;
-                points--;
-                txtViewPoints.setText("Points: " + points);
-
+                Toast.makeText(context, "That's the same number!", Toast.LENGTH_SHORT).show();
             }
 
-            if (!allStages.get(4).getAchievedGoal()){
-                txtViewDisplay.setText(displayLabel);
-                txtViewClickCounter.setText("Clicks Left: " + (totalClicks - clickCounter));
+            displayLabel = "";
+            clickCounter = 0;
+            points--;
+            txtViewPoints.setText("Points: " + points);
 
-            }
+        }
+
+        if (!allStages.get(4).getAchievedGoal()) {
+            txtViewDisplay.setText(displayLabel);
+            txtViewClickCounter.setText("Clicks Left: " + (totalClicks - clickCounter));
+
+        }
     }
 }
