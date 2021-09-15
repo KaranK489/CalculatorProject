@@ -52,6 +52,10 @@ public class EasyMode extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_one);
 
+        Intent intent = new Intent(EasyMode.this, Shop.class);
+        //intent.putExtra()
+        startActivity(intent);
+
 
         context = getApplicationContext();
 
