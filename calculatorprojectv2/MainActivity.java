@@ -3,39 +3,42 @@ package com.example.calculatorprojectv2;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button mainButton, nextButton, buttonEasy, buttonMedium, buttonHard;
+    Button mainButton, buttonEasy, buttonMedium, buttonHard, buttonEndless;
     TextView instructionsLabel;
 
     //0,1,2
     int difficulty = -1;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        context = getApplicationContext();
+
 //        Animation animationIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
 //        Animation animationOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
         //^^Fade in and Fade out animation through XML files
 
         mainButton = (Button) findViewById(R.id.mainButton);
-        nextButton = (Button) findViewById(R.id.nextButton);
+        buttonEndless = (Button) findViewById(R.id.endlessButton);
         buttonEasy = (Button) findViewById(R.id.buttonEasy);
         buttonMedium = (Button) findViewById(R.id.buttonMedium);
         buttonHard = (Button) findViewById(R.id.buttonHard);
 
         instructionsLabel = (TextView) findViewById(R.id.instructionLabelOne);
-
-
 
         mainButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,25 +49,15 @@ public class MainActivity extends AppCompatActivity {
                     openEasyMode();
                 } else if (difficulty == 1){
 //                    openMediumMode();
-                } else{
+                } else if (difficulty == 2){
 //                    openHardMode();
+                } else {
+//                    openEndlessMode();
                 }
             }
         });
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                    nextButton.setVisibility(View.GONE);
-                    instructionsLabel.setText("Select Difficulty, Press play to start!");
-                    mainButton.setVisibility(View.VISIBLE);
-                    buttonEasy.setVisibility(View.VISIBLE);
-                    buttonMedium.setVisibility(View.VISIBLE);
-                    buttonHard.setVisibility(View.VISIBLE);
-
-            }
-        });
 
         buttonEasy.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -87,6 +80,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view){
                 difficulty = 2;
                 instructionsLabel.setText("Hard mode selected");
+            }
+        });
+
+        buttonEndless.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                difficulty = 3;
+                instructionsLabel.setText("Endless mode selected");
             }
         });
     }
@@ -119,6 +120,12 @@ public class MainActivity extends AppCompatActivity {
 //        Intent intent = new Intent(this, HardMode.class);
 //        startActivity(intent);
 //    }
+
+    //    public void openHardMode(){
+//        Intent intent = new Intent(this, EndlessMode.class);
+//        startActivity(intent);
+//    }
+
 
     public int getDifficulty(){
         return difficulty;

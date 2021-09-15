@@ -20,16 +20,17 @@ public class Shop extends AppCompatActivity {
     TextView shopPoints;
     private int points, currentStage;
     private boolean moreTime, moreBtnClicks, pointDoubler;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop);
+        context = getApplicationContext();
 
         moreTime = false;
         moreBtnClicks = false;
         pointDoubler = false;
-
         Intent getPts = getIntent();
         points = (getPts.getIntExtra("Points", 0));
         currentStage = (getPts.getIntExtra("Current Stage", 0));
@@ -40,6 +41,7 @@ public class Shop extends AppCompatActivity {
         moreBtnClicksBtn = findViewById(R.id.moreBtnClicks);
 
         shopPoints = findViewById(R.id.shopPoints);
+        shopPoints.setText("Points: " + points);
 
         moreTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +49,8 @@ public class Shop extends AppCompatActivity {
                 if (points >= 3) {
                     moreTime = true;
                     updatePoints();
+                } else {
+                    Toast.makeText(context, "Not enough points!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -56,6 +60,8 @@ public class Shop extends AppCompatActivity {
                 if (points >= 3) {
                     pointDoubler = true;
                     updatePoints();
+                } else {
+                    Toast.makeText(context, "Not enough points!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -65,6 +71,8 @@ public class Shop extends AppCompatActivity {
                 if (points >= 3) {
                     moreBtnClicks = true;
                     updatePoints();
+                } else {
+                    Toast.makeText(context, "Not enough points!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -83,6 +91,7 @@ public class Shop extends AppCompatActivity {
 
     }
     private void updatePoints(){
+        Toast.makeText(context, "Purchased item!", Toast.LENGTH_SHORT).show();
         points-=3;
         shopPoints.setText("Points: " + points);
     }

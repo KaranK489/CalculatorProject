@@ -15,6 +15,10 @@ public class Stage {
         return clicks;
     }
 
+    public void setClicks(int c){
+        clicks = c;
+    }
+
     public double getGoal(){
         return goal;
     }

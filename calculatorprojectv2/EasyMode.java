@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 
 public class EasyMode extends AppCompatActivity {
     TextView txtViewDisplay, txtViewGoal, txtViewClickCounter, txtViewTotalClicks, txtViewLevel, txtViewPoints; //add a TextView for the number that the use has to reach
-    Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnAdd, btnSubtract, btnMultiply, btnDivide, btnCalculate, btn0, btnDecimal, btnNegative, btnClear, btnShop;
+    Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnAdd, btnSubtract, btnMultiply, btnDivide, btnCalculate, btn0, btnDecimal, btnNegative, btnClear, btnShop, btnMenu;
 
     private int clickCounter = 0;
     private int totalClicks = 0;
@@ -29,21 +31,20 @@ public class EasyMode extends AppCompatActivity {
     //FROM 0-4, TO MATCH WITH ALLSTAGES ARRAYLIST (CHANGE LATER MAYBE IDK, BUT EASIER TO MATCH WITH ARRAYLIST FOR NOW)
     private int currentStage = -1;
 
-    ArrayList<Stage> allStages = new ArrayList<>();
+    private ArrayList<Stage> allStages = new ArrayList<>();
 
-    Context context;
+    private Context context;
     ;
-    CharSequence keystrokeOver;
-    CharSequence sillyGoose;
-    int duration;
+    private int numSymbolsClicked = 0;
 
-    Toast fgd;
-    Context contextTwo;
-    CharSequence textOver;
-    CharSequence textUnder;
-    int durationTwo;
-    Toast underShot;
-    Toast overShot;
+    private CharSequence sillyGoose;
+    private int duration;
+
+    private Toast fgd;
+
+
+
+    private int pointMultiplier = 1;
 
 
     @Override
@@ -61,12 +62,7 @@ public class EasyMode extends AppCompatActivity {
         fgd = Toast.makeText(context, sillyGoose, duration);
 
 
-        textOver = "Goal Overshot!";
-        textUnder = "Goal Undershot!";
 
-
-        underShot = Toast.makeText(context, textUnder, duration);
-        overShot = Toast.makeText(context, textOver, duration);
 
         btn1 = (Button) findViewById(R.id.buttonOne);
         btn2 = (Button) findViewById(R.id.buttonTwo);
@@ -87,6 +83,7 @@ public class EasyMode extends AppCompatActivity {
         btnNegative = (Button) findViewById(R.id.buttonNegative);
         btnClear = (Button) findViewById(R.id.buttonClear);
         btnShop = (Button) findViewById(R.id.buttonShop);
+        btnMenu = (Button) findViewById(R.id.buttonMenu);
 
         //^^ The numerical calculator buttons
 
@@ -103,6 +100,13 @@ public class EasyMode extends AppCompatActivity {
 
         txtViewPoints.setText("Points: " + points);
 
+        btn0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonClick("0");
+
+            }
+        });
 
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +115,21 @@ public class EasyMode extends AppCompatActivity {
 
             }
         });
+
+
+//        btn1.setOnTouchListener(new View.OnTouchListener() {
+//
+//            @Override
+//            public boolean onTouch(View view, MotionEvent event) {
+//                if(event.getAction() == MotionEvent.ACTION_UP) {
+//                    btn1.setBackgroundColor(Color.RED);
+//                } else if(event.getAction() == MotionEvent.ACTION_DOWN) {
+//                    btn1.setBackgroundColor(Color.BLUE);
+//                }
+//                return false;
+//            }
+//
+//        });
 
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,13 +246,32 @@ public class EasyMode extends AppCompatActivity {
                 txtViewClickCounter.setText("Clicks Left: " + totalClicks);
             }
         });
+
         btnShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (clickCounter == 0){
                 Intent shop = new Intent(EasyMode.this, Shop.class);
                 shop.putExtra("Points", points);
                 shop.putExtra("Current Stage", currentStage);
                 startActivity(shop);
+
+                } else {
+                    Toast.makeText(context, "Finish the stage!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent menu = new Intent(EasyMode.this, MainActivity.class);
+                startActivity(menu);
+
+                Toast.makeText(context, "Returned to menu", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -245,17 +283,30 @@ public class EasyMode extends AppCompatActivity {
         allStages.add(new Stage(12, 3));
 
         currentStage++;
-
         setStuff();
         Intent getShopValues = getIntent();
         reSetUIValues(getShopValues.getIntExtra("Points", 0), getShopValues.getIntExtra("Current Stage", 0));
-
+        applyPowerups(getShopValues.getBooleanExtra("Point Doubler", false), getShopValues.getBooleanExtra("More Btn Clicks", false));
     }
     private void reSetUIValues(int Points, int curStage){
         points = Points;
         currentStage = curStage;
         txtViewPoints.setText("Points: " + points);
         setStuff();
+    }
+
+    private void applyPowerups(boolean pointDoubler, boolean moreBtnClicks){
+        if (pointDoubler){
+            pointMultiplier = 2;
+        }
+
+        if (moreBtnClicks){
+            allStages.get(currentStage).setClicks(allStages.get(currentStage).getClicks()+2);
+            totalClicks = allStages.get(currentStage).getClicks();
+            txtViewTotalClicks.setText("Total Clicks: " + totalClicks);
+            txtViewClickCounter.setText("Clicks Left: " + totalClicks);
+
+        }
 
     }
     private void setStuff() {
@@ -297,20 +348,30 @@ public class EasyMode extends AppCompatActivity {
 
     public void buttonClick(String symbol) {
 
+        boolean symbolClicked = symbol.equals("÷") || symbol.equals("×") || symbol.equals("+") || symbol.equals("-");
 
         if (clickCounter >= totalClicks) {
             Toast.makeText(context, "Out of Clicks!", Toast.LENGTH_SHORT).show();
 
-//            displayLabel = "";
-//            txtViewDisplay.setText(displayLabel);
-
         } else {
 
-            clickCounter++;
-            txtViewClickCounter.setText("Clicks Left: " + (totalClicks - clickCounter));
-            displayLabel = displayLabel.concat(symbol);
-            txtViewDisplay.setText(displayLabel);
+            if (symbolClicked && displayLabel.equals("")){
+                Toast.makeText(context, "Enter a digit first!", Toast.LENGTH_SHORT).show();
+            } else if (symbolClicked && numSymbolsClicked ==1){
+                Toast.makeText(context, "Enter a digit!", Toast.LENGTH_SHORT).show();
+            } else {
 
+                clickCounter++;
+                txtViewClickCounter.setText("Clicks Left: " + (totalClicks - clickCounter));
+                displayLabel = displayLabel.concat(symbol);
+                txtViewDisplay.setText(displayLabel);
+
+                if (symbolClicked){
+                    numSymbolsClicked++;
+                } else {
+                    numSymbolsClicked = 0;
+                }
+            }
         }
     }
 
@@ -323,13 +384,10 @@ public class EasyMode extends AppCompatActivity {
         expEval = expEval.replaceAll("÷", "/");
 
         String onlyDigits = expEval;
-        onlyDigits = onlyDigits.replaceAll("'\\+'", "");
+        onlyDigits = onlyDigits.replaceAll("\\+", "");
         onlyDigits = onlyDigits.replaceAll("-", "");
         onlyDigits = onlyDigits.replaceAll("\\*", "");
-        onlyDigits = onlyDigits.replaceAll("'/'", "");
-
-
-        System.out.println(onlyDigits);
+        onlyDigits = onlyDigits.replaceAll("/", "");
 
         Expression exp = new Expression(expEval);
 
@@ -337,28 +395,25 @@ public class EasyMode extends AppCompatActivity {
 
         double result = Double.parseDouble(resultS);
 
+
         if (result == allStages.get(currentStage).getGoal() && result != Double.parseDouble(onlyDigits)) {
             allStages.get(currentStage).setAchievedGoal(true);
             if (currentStage < 4) {
                 currentStage++;
                 setStuff();
                 Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT).show();
-                points += currentStage + 1;
+                points += currentStage * pointMultiplier;
                 txtViewPoints.setText("Points: " + points);
             } else {
                 finishScreen();
             }
 
-//            } else if (result == Double.parseDouble(expEval)){
-//                Toast.makeText(context, "That's the same number!", Toast.LENGTH_SHORT).show();
-//
-//            }
         } else {
 
             if (result > allStages.get(currentStage).getGoal()) {
-                overShot.show();
+                Toast.makeText(context, "Goal Overshot!", duration).show();
             } else if (result < allStages.get(currentStage).getGoal()) {
-                underShot.show();
+                Toast.makeText(context, "Goal Undershot!", duration).show();
             } else {
                 Toast.makeText(context, "That's the same number!", Toast.LENGTH_SHORT).show();
             }
