@@ -10,238 +10,41 @@
     <!-- Display of the Numbers ^^-->
 
 
-    <TextView
-        android:id="@+id/display"
-        android:layout_width="0dp"
-        android:layout_height="81dp"
-        android:layout_marginStart="2dp"
-        android:text=""
-        android:textAlignment="viewEnd"
-        android:textColor="@color/white"
-        android:textSize="60sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/buttonClear"
-        app:layout_constraintEnd_toEndOf="@+id/buttonNine"
-        app:layout_constraintStart_toStartOf="@+id/buttonSeven" />
-
-    <TextView
-        android:id="@+id/levelLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:text="@string/level_1"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/constraintDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="5dp"
-        android:text="Constraints:"
-        android:textColor="@color/white"
-        android:textSize="28sp"
-        app:layout_constraintStart_toStartOf="@+id/levelLabel"
-        app:layout_constraintTop_toBottomOf="@+id/levelLabel" />
-
-    <TextView
-        android:id="@+id/goalDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="11dp"
-        android:text="@string/goal"
-        android:textColor="@color/white"
-        android:textSize="28sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintDisplay" />
-
-    <TextView
-        android:id="@+id/buttonClickCounter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="13dp"
-        android:text="Button Clicks: "
-        android:textColor="@color/white"
-        android:textSize="28sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pointsDisplay" />
-
-    <TextView
-        android:id="@+id/pointsDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:text="Points"
-        android:textColor="@color/white"
-        android:textSize="28sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/goalDisplay" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/constraintDisplay"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Constraints:"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:textSize="28sp"-->
+    <!--        tools:layout_editor_absoluteX="16dp"-->
+    <!--        tools:layout_editor_absoluteY="38dp" />-->
 
     <Button
         android:id="@+id/buttonClear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="286dp"
+        android:layout_marginTop="57dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/calculator_custom_button"
         android:text="CLEAR"
         android:textColor="#FFA500"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/buttonSeven"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:background="@drawable/calculator_custom_button"
-        android:text="@string/_7"
-        android:textColor="#FFA500"
-        android:textSize="25sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/buttonEight"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/buttonMultiply"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/calculator_custom_button"
-        android:text="@string/times"
-        android:textColor="#FFA500"
-        android:textSize="25sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/buttonSix"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/buttonAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/calculator_custom_button"
-        android:text="@string/plus"
-        android:textColor="#FFA500"
-        android:textSize="25sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/buttonNegative"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/buttonDivide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/calculator_custom_button"
-        android:text="@string/divide"
-        android:textColor="#FFA500"
-        android:textSize="25sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/buttonNine"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/buttonSubtract"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/calculator_custom_button"
-        android:text="@string/minus"
-        android:textColor="#FFA500"
-        android:textSize="25sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/buttonThree"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/buttonCalculate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/calculator_custom_button"
-        android:text="Go!"
-        android:textColor="#FFA500"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAdd" />
-
-    <Button
-        android:id="@+id/buttonFive"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/calculator_custom_button"
-        android:text="@string/_5"
-        android:textColor="#FFA500"
-        android:textSize="25sp"
-        app:layout_constraintStart_toEndOf="@+id/buttonFour"
-        app:layout_constraintTop_toBottomOf="@+id/buttonEight" />
-
-    <Button
-        android:id="@+id/buttonOne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:background="@drawable/calculator_custom_button"
-        android:text="@string/_1"
-        android:textColor="#FFA500"
-        android:textSize="25sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/buttonTwo"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/buttonEight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/calculator_custom_button"
-        android:text="@string/_8"
-        android:textColor="#FFA500"
-        android:textSize="25sp"
-        app:layout_constraintStart_toEndOf="@+id/buttonSeven"
-        app:layout_constraintTop_toBottomOf="@+id/display" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonShop" />
 
     <Button
         android:id="@+id/buttonDecimal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="13dp"
         android:background="@drawable/calculator_custom_button"
         android:text="."
         android:textColor="#FFA500"
         android:textSize="25sp"
         app:layout_constraintStart_toEndOf="@+id/buttonZero"
         app:layout_constraintTop_toBottomOf="@+id/buttonTwo" />
-
-    <Button
-        android:id="@+id/buttonThree"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:background="@drawable/calculator_custom_button"
-        android:text="@string/_3"
-        android:textColor="#FFA500"
-        android:textSize="25sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/buttonTwo"
-        app:layout_constraintStart_toEndOf="@+id/buttonTwo" />
-
-    <Button
-        android:id="@+id/buttonZero"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:background="@drawable/calculator_custom_button"
-        android:text="0"
-        android:textColor="#FFA500"
-        android:textSize="25sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/buttonDecimal"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonFour"
@@ -268,6 +71,117 @@
         app:layout_constraintStart_toEndOf="@+id/buttonFive" />
 
     <Button
+        android:id="@+id/buttonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/calculator_custom_button"
+        android:text="@string/plus"
+        android:textColor="#FFA500"
+        android:textSize="25sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonNegative"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/buttonZero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/calculator_custom_button"
+        android:text="0"
+        android:textColor="#FFA500"
+        android:textSize="25sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonDecimal"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonShop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="14dp"
+        android:background="@drawable/calculator_custom_button"
+        android:text="Shop"
+        android:textColor="#FFA500"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timerDisplay" />
+
+    <Button
+        android:id="@+id/buttonEight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/calculator_custom_button"
+        android:text="@string/_8"
+        android:textColor="#FFA500"
+        android:textSize="25sp"
+        app:layout_constraintStart_toEndOf="@+id/buttonSeven"
+        app:layout_constraintTop_toBottomOf="@+id/display" />
+
+    <Button
+        android:id="@+id/buttonSubtract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/calculator_custom_button"
+        android:text="@string/minus"
+        android:textColor="#FFA500"
+        android:textSize="25sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonThree"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/buttonSeven"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/calculator_custom_button"
+        android:text="@string/_7"
+        android:textColor="#FFA500"
+        android:textSize="25sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonEight"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/calculator_custom_button"
+        android:text="@string/_1"
+        android:textColor="#FFA500"
+        android:textSize="25sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonTwo"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonNine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/calculator_custom_button"
+        android:text="@string/_9"
+        android:textColor="#FFA500"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="@+id/display"
+        app:layout_constraintTop_toBottomOf="@+id/display" />
+
+    <Button
+        android:id="@+id/buttonFive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/calculator_custom_button"
+        android:text="@string/_5"
+        android:textColor="#FFA500"
+        android:textSize="25sp"
+        app:layout_constraintStart_toEndOf="@+id/buttonFour"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEight" />
+
+    <Button
         android:id="@+id/buttonTwo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -281,69 +195,193 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonFive" />
 
     <Button
-        android:id="@+id/buttonNegative"
+        android:id="@+id/buttonMultiply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/calculator_custom_button"
-        android:text="( - )"
+        android:text="@string/times"
         android:textColor="#FFA500"
         android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="@+id/buttonThree"
-        app:layout_constraintTop_toTopOf="@+id/buttonDecimal" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonSix"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/buttonNine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/calculator_custom_button"
-        android:text="@string/_9"
-        android:textColor="#FFA500"
-        android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="@+id/buttonSix"
-        app:layout_constraintTop_toBottomOf="@+id/display" />
-
-
-    <Chronometer
-        android:id="@+id/timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="29dp"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonShop" />
-
-    <Button
-        android:id="@+id/buttonShop"
+        android:id="@+id/buttonCalculate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/calculator_custom_button"
-        android:text="Shop"
+        android:text="Go!"
         android:textColor="#FFA500"
         android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="@+id/buttonMenu"
-        app:layout_constraintTop_toBottomOf="@+id/buttonMenu" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAdd" />
+
+    <TextView
+        android:id="@+id/display"
+        android:layout_width="0dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="13dp"
+        android:text=""
+        android:textAlignment="viewEnd"
+        android:textColor="@color/white"
+        android:textSize="60sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonClear"
+        app:layout_constraintEnd_toStartOf="@+id/buttonShop"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonThree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:background="@drawable/calculator_custom_button"
+        android:text="@string/_3"
+        android:textColor="#FFA500"
+        android:textSize="25sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonTwo"
+        app:layout_constraintStart_toEndOf="@+id/buttonTwo" />
+
+    <Button
+        android:id="@+id/buttonDivide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/calculator_custom_button"
+        android:text="@string/divide"
+        android:textColor="#FFA500"
+        android:textSize="25sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonNine"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/buttonMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="29dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="28dp"
         android:background="@drawable/calculator_custom_button"
         android:text="MENU"
         android:textColor="#FFA500"
         android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonNegative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="11dp"
+        android:background="@drawable/calculator_custom_button"
+        android:text="( - )"
+        android:textColor="#FFA500"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonAdd"
+        app:layout_constraintTop_toTopOf="@+id/buttonDecimal" />
+
+    <TextView
+        android:id="@+id/levelLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/level_1"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+    <TextView
+        android:id="@+id/goalDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:text="@string/goal"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/levelLabel" />
+
+    <TextView
+        android:id="@+id/buttonClickCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="Button Clicks: "
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goalDisplay" />
+
+    <TextView
+        android:id="@+id/pointsDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="14dp"
+        android:text="Points"
+        android:textColor="@color/white"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" /><![CDATA[
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--    <Chronometer-->
+    <!--        android:id="@+id/timer"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="24dp"-->
+    <!--        android:layout_marginEnd="29dp"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:textSize="30sp"-->
+    <!--        android:visibility="visible"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/buttonShop" />--><![CDATA[
+
+
+
+
+
+
+
     " />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     ]]>
+
+    <TextView
+        android:id="@+id/timerDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Time"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="@+id/pointsDisplay"
+        app:layout_constraintTop_toBottomOf="@+id/pointsDisplay" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -371,7 +409,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintGuide_begin="25dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
