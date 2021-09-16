@@ -7,9 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,10 @@ public class EasyMode extends AppCompatActivity {
 
     private Toast fgd;
 
+    private Chronometer chronometer;
+    private long pauseOffset;
+    private boolean timerRunning;
+
 
 
     private int pointMultiplier = 1;
@@ -51,10 +57,10 @@ public class EasyMode extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_one);
-
-        Intent intent = new Intent(EasyMode.this, Shop.class);
-        //intent.putExtra()
-        startActivity(intent);
+//
+//        Intent intent = new Intent(EasyMode.this, Shop.class);
+//        //intent.putExtra()
+//        startActivity(intent);
 
 
         context = getApplicationContext();
@@ -100,6 +106,11 @@ public class EasyMode extends AppCompatActivity {
         txtViewTotalClicks = (TextView) findViewById(R.id.constraintDisplay);
         txtViewLevel = (TextView) findViewById(R.id.levelLabel);
         txtViewPoints = (TextView) findViewById(R.id.pointsDisplay);
+
+        chronometer = findViewById(R.id.timer);
+        chronometer.setFormat("%s");
+        chronometer.setBase(SystemClock.elapsedRealtime());
+
         //^^ Sets the Displays
 
         txtViewPoints.setText("Points: " + points);
@@ -246,7 +257,11 @@ public class EasyMode extends AppCompatActivity {
                 txtViewDisplay.setText(displayLabel);
                 totalClicks = allStages.get(currentStage).getClicks();
                 clickCounter = 0;
-
+                if (!timerRunning) {
+                    chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+                    chronometer.start();
+                    timerRunning = true;
+                }
                 txtViewClickCounter.setText("Clicks Left: " + totalClicks);
             }
         });
@@ -285,6 +300,15 @@ public class EasyMode extends AppCompatActivity {
         allStages.add(new Stage(169, 5));
         allStages.add(new Stage(267, 6));
         allStages.add(new Stage(12, 3));
+
+
+        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+
+            }
+        });
+
 
         currentStage++;
         setStuff();
