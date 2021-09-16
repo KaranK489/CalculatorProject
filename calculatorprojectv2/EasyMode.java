@@ -285,11 +285,11 @@ public class EasyMode extends AppCompatActivity {
             public void onClick(View view) {
                 if (clickCounter == 0){
                     timer.cancel();
-                Intent shop = new Intent(EasyMode.this, Shop.class);
-                shop.putExtra("Points", points);
-                shop.putExtra("Current Stage", currentStage);
-                shop.putExtra("Timer Time", timeLeftMS);
-                startActivity(shop);
+                    Intent shop = new Intent(EasyMode.this, Shop.class);
+                    shop.putExtra("Points", points);
+                    shop.putExtra("Current Stage", currentStage);
+                    shop.putExtra("Timer Time", timeLeftMS);
+                    startActivity(shop);
 
                 } else {
                     Toast.makeText(context, "Finish the stage!", Toast.LENGTH_SHORT).show();

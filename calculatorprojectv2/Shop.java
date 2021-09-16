@@ -35,7 +35,7 @@ public class Shop extends AppCompatActivity {
         Intent getPts = getIntent();
         points = (getPts.getIntExtra("Points", 0));
         currentStage = (getPts.getIntExtra("Current Stage", 0));
-        timeLeft = (getPts.getIntExtra("Timer Time", 0));
+        timeLeft = (getPts.getLongExtra("Timer Time", 0));
 
         shopBackBtn = findViewById(R.id.shopBack);
         moreTimeBtn = findViewById(R.id.moreTime);
