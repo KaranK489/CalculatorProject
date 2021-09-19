@@ -23,6 +23,9 @@ public class Stage {
         return goal;
     }
 
+    public void setGoal(double Goal){
+        goal = Goal;
+    }
     public void setAchievedGoal(boolean a){
         achievedGoal = a;
     }

@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (difficulty == 2){
                     openHardMode();
                 } else {
-//                    openEndlessMode();
+                    openEndlessMode();
                 }
             }
         });
@@ -112,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openMediumMode(){
-//        Intent intent = new Intent(this, MediumMode.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, MediumMode.class);
+        startActivity(intent);
     }
 
     public void openHardMode(){
@@ -121,10 +121,10 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(intent);
     }
 
-    //    public void openEndlessMode(){
-//        Intent intent = new Intent(this, EndlessMode.class);
-//        startActivity(intent);
-//    }
+    public void openEndlessMode(){
+        Intent intent = new Intent(this, EndlessMode.class);
+        startActivity(intent);
+    }
 
 
     public int getDifficulty(){

@@ -1,27 +1,21 @@
 package com.example.calculatorprojectv2;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.SystemClock;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.mariuszgromada.math.mxparser.*;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.lang.reflect.Array;
+import org.mariuszgromada.math.mxparser.Expression;
+
 import java.util.ArrayList;
 
-public class EasyMode extends AppCompatActivity {
+public class MediumMode extends AppCompatActivity {
     TextView txtViewDisplay, txtViewGoal, txtViewClickCounter, txtViewLevel, txtViewPoints, txtViewTimer; //add a TextView for the number that the use has to reach
     Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnAdd, btnSubtract, btnMultiply, btnDivide, btnCalculate, btn0, btnDecimal, btnNegative, btnClear, btnShop, btnMenu;
 
@@ -252,7 +246,7 @@ public class EasyMode extends AppCompatActivity {
             public void onClick(View view) {
                 if (clickCounter == 0) {
                     timer.cancel();
-                    Intent shop = new Intent(EasyMode.this, Shop.class);
+                    Intent shop = new Intent(MediumMode.this, Shop.class);
                     shop.putExtra("Points", points);
                     shop.putExtra("Current Stage", currentStage);
                     shop.putExtra("Timer Time", timeLeftMS);
@@ -270,7 +264,7 @@ public class EasyMode extends AppCompatActivity {
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent menu = new Intent(EasyMode.this, MainActivity.class);
+                Intent menu = new Intent(MediumMode.this, MainActivity.class);
                 startActivity(menu);
 
                 Toast.makeText(context, "Returned to menu", Toast.LENGTH_SHORT).show();
@@ -312,8 +306,8 @@ public class EasyMode extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
 
 
-                String v = String.format("%02d", millisUntilFinished / 60000);
-                int va = (int) ((millisUntilFinished % 60000) / 1000);
+                String v = String.format("%02d", millisUntilFinished / 45000);
+                int va = (int) ((millisUntilFinished % 45000) / 1000);
                 txtViewTimer.setText(v + ":" + String.format("%02d", va));
 
                 timeLeftMS -= 1000;

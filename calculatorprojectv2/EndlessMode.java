@@ -1,29 +1,22 @@
 package com.example.calculatorprojectv2;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.SystemClock;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.mariuszgromada.math.mxparser.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class EasyMode extends AppCompatActivity {
-    TextView txtViewDisplay, txtViewGoal, txtViewClickCounter, txtViewLevel, txtViewPoints, txtViewTimer; //add a TextView for the number that the use has to reach
-    Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnAdd, btnSubtract, btnMultiply, btnDivide, btnCalculate, btn0, btnDecimal, btnNegative, btnClear, btnShop, btnMenu;
+public class EndlessMode extends AppCompatActivity {
+    TextView txtViewDisplay, txtViewGoal, txtViewClickCounter, txtViewLevel, txtViewPoints; //add a TextView for the number that the use has to reach
+    Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnAdd, btnSubtract, btnMultiply, btnDivide, btnCalculate, btn0, btnDecimal, btnNegative, btnClear, btnShop, btnMenu, btnEndless;
 
     private int clickCounter = 0;
     private int totalClicks = 0;
@@ -37,19 +30,16 @@ public class EasyMode extends AppCompatActivity {
 
     private ArrayList<Stage> allStages = new ArrayList<>();
 
-
     private Context context;
     ;
     private int numSymbolsClicked = 0;
 
-    private long timeLeftMS = 60000;
 
 
     private int pointMultiplier = 1;
 
     private boolean endLessModeOn;
 
-    CountDownTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +80,6 @@ public class EasyMode extends AppCompatActivity {
 
         txtViewLevel = (TextView) findViewById(R.id.levelLabel);
         txtViewPoints = (TextView) findViewById(R.id.pointsDisplay);
-        txtViewTimer = (TextView) findViewById(R.id.timerDisplay);
 
         //^^ Sets the Displays
 
@@ -238,11 +227,7 @@ public class EasyMode extends AppCompatActivity {
                 txtViewDisplay.setText(displayLabel);
                 totalClicks = allStages.get(currentStage).getClicks();
                 clickCounter = 0;
-//                if (!timerRunning) {
-//                    chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
-//                    chronometer.start();
-//                    timerRunning = true;
-//                }
+
                 txtViewClickCounter.setText("Clicks Left: " + totalClicks);
             }
         });
@@ -251,12 +236,11 @@ public class EasyMode extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (clickCounter == 0) {
-                    timer.cancel();
-                    Intent shop = new Intent(EasyMode.this, Shop.class);
+                    Intent shop = new Intent(EndlessMode.this, Shop.class);
                     shop.putExtra("Points", points);
                     shop.putExtra("Current Stage", currentStage);
-                    shop.putExtra("Timer Time", timeLeftMS);
                     shop.putExtra("Goal Num", allStages.get(currentStage).getGoal());
+
                     startActivity(shop);
 
                 } else {
@@ -270,14 +254,13 @@ public class EasyMode extends AppCompatActivity {
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent menu = new Intent(EasyMode.this, MainActivity.class);
+                Intent menu = new Intent(EndlessMode.this, MainActivity.class);
                 startActivity(menu);
 
                 Toast.makeText(context, "Returned to menu", Toast.LENGTH_SHORT).show();
 
             }
         });
-
 
 
         allStages.add(new Stage(10 + Math.floor(Math.random() * 89), 4));
@@ -295,40 +278,24 @@ public class EasyMode extends AppCompatActivity {
         allStages.add(new Stage(10000 + Math.floor(Math.random() * 89999), 7));
         allStages.add(new Stage(1000000 + Math.floor(Math.random() * 8999999), 9));
 
-        System.out.println("Original" + timeLeftMS);
+
+//        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+//            @Override
+//            public void onChronometerTick(Chronometer chronometer) {
+//
+//            }
+//        });
+
 
         currentStage++;
         setStuff();
         Intent getShopValues = getIntent();
         reSetUIValues(getShopValues.getIntExtra("Points", 0), getShopValues.getIntExtra("Current Stage", 0),  getShopValues.getDoubleExtra("Goal Num", 0));
-        applyPowerups(getShopValues.getBooleanExtra("Point Doubler", false), getShopValues.getBooleanExtra("More Btn Clicks", false), getShopValues.getBooleanExtra("More Time", false));
-        timeLeftMS = getShopValues.getLongExtra("Timer Time", 60000);
-
-
-
-
-        timer = new CountDownTimer(timeLeftMS, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-
-
-                String v = String.format("%02d", millisUntilFinished / 60000);
-                int va = (int) ((millisUntilFinished % 60000) / 1000);
-                txtViewTimer.setText(v + ":" + String.format("%02d", va));
-
-                timeLeftMS -= 1000;
-                System.out.println(timeLeftMS);
-            }
-
-            public void onFinish() {
-                //txtViewTimer.setText("done!");
-            }
-        };
-
-        timer.start();
+        applyPowerups(getShopValues.getBooleanExtra("Point Doubler", false), getShopValues.getBooleanExtra("More Btn Clicks", false));
 
 
     }
+
 
     private void reSetUIValues(int Points, int curStage, double goalNum) {
         points = Points;
@@ -347,7 +314,7 @@ public class EasyMode extends AppCompatActivity {
         txtViewClickCounter.setText("Clicks Left: " + totalClicks);
     }
 
-    private void applyPowerups(boolean pointDoubler, boolean moreBtnClicks, boolean moreTime) {
+    private void applyPowerups(boolean pointDoubler, boolean moreBtnClicks ) {
         if (pointDoubler) {
             pointMultiplier = 2;
         }
@@ -360,9 +327,6 @@ public class EasyMode extends AppCompatActivity {
 
         }
 
-        if (moreTime) {
-            timeLeftMS += 30000;
-        }
 
     }
 
@@ -376,31 +340,6 @@ public class EasyMode extends AppCompatActivity {
         txtViewClickCounter.setText("Clicks Left: " + totalClicks);
     }
 
-    private void finishScreen() {
-        displayLabel = "";
-        txtViewDisplay.setText("You Beat the Game!");
-        txtViewGoal.setVisibility(View.GONE);
-        txtViewClickCounter.setVisibility(View.GONE);
-        txtViewLevel.setVisibility(View.GONE);
-
-        btn1.setVisibility(View.GONE);
-        btn2.setVisibility(View.GONE);
-        btn3.setVisibility(View.GONE);
-        btn4.setVisibility(View.GONE);
-        btn5.setVisibility(View.GONE);
-        btn6.setVisibility(View.GONE);
-        btn7.setVisibility(View.GONE);
-        btn8.setVisibility(View.GONE);
-        btn9.setVisibility(View.GONE);
-        btnAdd.setVisibility(View.GONE);
-        btnSubtract.setVisibility(View.GONE);
-        btnMultiply.setVisibility(View.GONE);
-        btnDivide.setVisibility(View.GONE);
-        btnCalculate.setVisibility(View.GONE);
-        btn0.setVisibility(View.GONE);
-        btnDecimal.setVisibility(View.GONE);
-        btnNegative.setVisibility(View.GONE);
-    }
 
     public void buttonClick(String symbol) {
 
@@ -454,16 +393,11 @@ public class EasyMode extends AppCompatActivity {
 
         if (result == allStages.get(currentStage).getGoal() && result != Double.parseDouble(onlyDigits)) {
             allStages.get(currentStage).setAchievedGoal(true);
-            if (currentStage < 4) {
-                currentStage++;
-                setStuff();
-                Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT).show();
-                points += currentStage * pointMultiplier;
-                txtViewPoints.setText("Points: " + points);
-            } else {
-                finishScreen();
-            }
-
+            currentStage++;
+            setStuff();
+            Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT).show();
+            points += currentStage * pointMultiplier;
+            txtViewPoints.setText("Points: " + points);
         } else {
             System.out.println(result + "RESULT");
             if (result > allStages.get(currentStage).getGoal()) {

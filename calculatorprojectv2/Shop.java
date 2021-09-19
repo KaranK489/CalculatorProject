@@ -22,7 +22,7 @@ public class Shop extends AppCompatActivity {
     private boolean moreTime, moreBtnClicks, pointDoubler;
     private Context context;
     private long timeLeft;
-
+    private double goalNum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +36,7 @@ public class Shop extends AppCompatActivity {
         points = (getPts.getIntExtra("Points", 0));
         currentStage = (getPts.getIntExtra("Current Stage", 0));
         timeLeft = (getPts.getLongExtra("Timer Time", 0));
+        goalNum = getPts.getDoubleExtra("Goal Num", 0);
 
         shopBackBtn = findViewById(R.id.shopBack);
         moreTimeBtn = findViewById(R.id.moreTime);
@@ -89,6 +90,7 @@ public class Shop extends AppCompatActivity {
                 goBack.putExtra("More Btn Clicks", moreBtnClicks);
                 goBack.putExtra("More Time", moreTime);
                 goBack.putExtra("Timer Time", timeLeft);
+                goBack.putExtra("Goal Num", goalNum);
                 System.out.println(timeLeft + "JERE ");
                 startActivity(goBack);
             }
