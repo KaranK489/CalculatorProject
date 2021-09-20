@@ -295,6 +295,7 @@ public class EasyMode extends AppCompatActivity {
                 Intent menu = new Intent(EasyMode.this, MainActivity.class);
                 menu.putExtra("Points", points);
                 menu.putExtra("High Score", highScoreText);
+                menu.putExtra("Mode", 1);
                 startActivity(menu);
 
 

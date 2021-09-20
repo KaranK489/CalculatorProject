@@ -292,6 +292,7 @@ public class HardMode extends AppCompatActivity {
                 Intent menu = new Intent(HardMode.this, MainActivity.class);
                 menu.putExtra("Points", points);
                 menu.putExtra("High Score", highScoreText);
+                menu.putExtra("Mode", 2);
                 startActivity(menu);
 
 

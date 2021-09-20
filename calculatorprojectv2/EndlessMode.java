@@ -28,6 +28,8 @@ public class EndlessMode extends AppCompatActivity {
     //FROM 0-4, TO MATCH WITH ALLSTAGES ARRAYLIST (CHANGE LATER MAYBE IDK, BUT EASIER TO MATCH WITH ARRAYLIST FOR NOW)
     private int currentStage = -1;
 
+    private String highScoreText;
+
     private ArrayList<Stage> allStages = new ArrayList<>();
 
     private Context context;
@@ -53,6 +55,9 @@ public class EndlessMode extends AppCompatActivity {
         operations.add("Multiplication");
         operations.add("Division");
         context = getApplicationContext();
+
+        Intent highScore = getIntent();
+        highScoreText = (highScore.getStringExtra("High Score"));
 
         btn1 = (Button) findViewById(R.id.buttonOne);
         btn2 = (Button) findViewById(R.id.buttonTwo);
@@ -249,6 +254,7 @@ public class EndlessMode extends AppCompatActivity {
                     shop.putExtra("Points", points);
                     shop.putExtra("Current Stage", currentStage);
                     shop.putExtra("Goal Num", allStages.get(currentStage).getGoal());
+                    shop.putExtra("High Score", highScoreText);
                     shop.putExtra("Mode", 3);
 
                     startActivity(shop);
@@ -266,6 +272,8 @@ public class EndlessMode extends AppCompatActivity {
             public void onClick(View view) {
                 Intent menu = new Intent(EndlessMode.this, MainActivity.class);
                 menu.putExtra("Points", points);
+                menu.putExtra("High Score", highScoreText);
+                menu.putExtra("Mode", 3);
                 startActivity(menu);
 
 
@@ -276,13 +284,13 @@ public class EndlessMode extends AppCompatActivity {
             int rand = ((int)(Math.random()*4));
 
             if (rand == 0){
-                allStages.add(new Stage(10 + Math.floor(Math.random() * 89), 4));
+                allStages.add(new Stage(10 + Math.floor(Math.random() * 89), 5));
             } else if (rand == 1){
-                allStages.add(new Stage(100 + Math.floor(Math.random() * 899), 5));
+                allStages.add(new Stage(100 + Math.floor(Math.random() * 899), 6));
             } else if (rand == 2){
-                allStages.add(new Stage(1000 + Math.floor(Math.random() * 8999), 6));
+                allStages.add(new Stage(1000 + Math.floor(Math.random() * 8999), 7));
             } else {
-                allStages.add(new Stage(10000 + Math.floor(Math.random() * 89999), 7));
+                allStages.add(new Stage(10000 + Math.floor(Math.random() * 89999), 8));
             }
         }
 

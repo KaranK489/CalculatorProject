@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String highScoreTxt;
 
+    private int mode = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,16 @@ public class MainActivity extends AppCompatActivity {
         Intent getPts = getIntent();
         points = (getPts.getIntExtra("Points", 0));
         highScoreTxt = getPts.getStringExtra("High Score");
+        mode = getPts.getIntExtra("Mode", 0);
+        String m = "";
+
+        if (mode == 1){
+            m = "Easy Mode";
+        } else if (mode == 2){
+            m = "Hard Mode";
+        } else if (mode == 3){
+            m = "Endless Mode";
+        }
 
 //        Animation animationIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
 //        Animation animationOut = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
@@ -47,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         highScoreLabel= (TextView) findViewById(R.id.highScoreLabel);
 
         if (points>0 && !highScoreTxt.contains(points+"")){
-            highScoreLabel.setText(highScoreTxt + " \n•" + points);
+            highScoreLabel.setText(highScoreTxt + " \n•" + m + ": " + points);
         } else{
             highScoreLabel.setText(highScoreTxt);
         }
