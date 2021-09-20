@@ -22,7 +22,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EasyMode extends AppCompatActivity {
-    TextView txtViewDisplay, txtViewGoal, txtViewClickCounter, txtViewLevel, txtViewPoints, txtViewTimer, txtViewEndDisplay; //add a TextView for the number that the use has to reach
+    TextView txtViewDisplay, txtViewGoal, txtViewClickCounter, txtViewLevel, txtViewPoints, txtViewTimer, txtViewEndDisplay, txtViewOperation; //add a TextView for the number that the use has to reach
     Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnAdd, btnSubtract, btnMultiply, btnDivide, btnCalculate, btn0, btnDecimal, btnNegative, btnClear, btnShop, btnMenu;
 
     private int clickCounter = 0;
@@ -49,13 +49,28 @@ public class EasyMode extends AppCompatActivity {
 
     private boolean endLessModeOn;
 
+    private String highScoreText;
+
     CountDownTimer timer;
+
+    ArrayList<String> operations = new ArrayList<>();
+
+    String operation1;
+    String operation2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_one);
 
+        operations.add("Addition");
+        operations.add("Subtraction");
+        operations.add("Multiplication");
+        operations.add("Division");
+
+        Intent highScore = getIntent();
+        highScoreText = (highScore.getStringExtra("High Score"));
         context = getApplicationContext();
 
         btn1 = (Button) findViewById(R.id.buttonOne);
@@ -79,6 +94,8 @@ public class EasyMode extends AppCompatActivity {
         btnShop = (Button) findViewById(R.id.buttonShop);
         btnMenu = (Button) findViewById(R.id.buttonMenu);
 
+        btnDecimal.setAlpha(0f);
+        btnNegative.setAlpha(0f);
         //^^ The numerical calculator buttons
 
 
@@ -92,6 +109,7 @@ public class EasyMode extends AppCompatActivity {
         txtViewPoints = (TextView) findViewById(R.id.pointsDisplay);
         txtViewTimer = (TextView) findViewById(R.id.timerDisplay);
         txtViewEndDisplay = (TextView) findViewById(R.id.endDisplay);
+        txtViewOperation = (TextView) findViewById(R.id.operationDisplay);
 
         //^^ Sets the Displays
 
@@ -258,6 +276,8 @@ public class EasyMode extends AppCompatActivity {
                     shop.putExtra("Current Stage", currentStage);
                     shop.putExtra("Timer Time", timeLeftMS);
                     shop.putExtra("Goal Num", allStages.get(currentStage).getGoal());
+                    shop.putExtra("High Score", highScoreText);
+                    shop.putExtra("Mode", 1);
                     startActivity(shop);
 
                 } else {
@@ -274,35 +294,32 @@ public class EasyMode extends AppCompatActivity {
                 timer.cancel();
                 Intent menu = new Intent(EasyMode.this, MainActivity.class);
                 menu.putExtra("Points", points);
+                menu.putExtra("High Score", highScoreText);
                 startActivity(menu);
 
 
-                Toast.makeText(context, "Returned to menu", Toast.LENGTH_SHORT).show();
 
             }
         });
 
-        allStages.add(new Stage(10 + Math.floor(Math.random() * 89), 4));
-        allStages.add(new Stage(100 + Math.floor(Math.random() * 899), 5));
+
 
         boolean temp = true;
         double num = 0;
-        while (temp) {
-            num = (int) Math.floor(Math.random() * 18);
-            if (num % 2 == 0 || num % 3 == 0 || num % 4 == 0 || num % 5 == 0) {
-                temp = false;
-            }
-        }
+//        while (temp) {
+//            num = (int) Math.floor(Math.random() * 18);
+//            if ((num % 2 == 0 || num % 3 == 0 || num % 4 == 0 || num % 5 == 0) && num>5) {
+//                temp = false;
+//            }
+//        }
 
-        allStages.add(new Stage(num, 3));
+//        allStages.add(new Stage(num, 3));
 
-        //new for temp
         allStages.add(new Stage(10 + Math.floor(Math.random() * 89), 4));
         allStages.add(new Stage(10 + Math.floor(Math.random() * 89), 4));
+        allStages.add(new Stage(100 + Math.floor(Math.random() * 899), 5));
+        allStages.add(new Stage(1000 + Math.floor(Math.random() * 8999), 6));
 
-        //original
-//        allStages.add(new Stage(10000 + Math.floor(Math.random() * 89999), 7));
-//        allStages.add(new Stage(1000000 + Math.floor(Math.random() * 8999999), 9));
 
         System.out.println("Original" + timeLeftMS);
 
@@ -318,6 +335,7 @@ public class EasyMode extends AppCompatActivity {
             timeLeftMS+=30000;
         }
 
+        txtViewTimer.setTextColor(Color.GREEN);
 
         timer = new CountDownTimer(timeLeftMS, 1000) {
 
@@ -330,6 +348,17 @@ public class EasyMode extends AppCompatActivity {
 
                 timeLeftMS -= 1000;
                 System.out.println(timeLeftMS);
+
+                if (timeLeftMS<=30000){
+                    txtViewTimer.setTextColor(Color.parseColor("#e5e80c"));
+                }
+
+                if (timeLeftMS<=20000){
+                    txtViewTimer.setTextColor(Color.parseColor("#ff8c00"));
+                }
+                if (timeLeftMS<=10000){
+                    txtViewTimer.setTextColor(Color.parseColor("#ff0d00"));
+                }
             }
 
             public void onFinish() {
@@ -379,6 +408,15 @@ public class EasyMode extends AppCompatActivity {
     }
 
     private void setStuff() {
+        btnMultiply.setAlpha(1f);
+        btnAdd.setAlpha(1f);
+        btnSubtract.setAlpha(1f);
+        btnDivide.setAlpha(1f);
+        btnMultiply.setEnabled(true);
+        btnAdd.setEnabled(true);
+        btnSubtract.setEnabled(true);
+        btnDivide.setEnabled(true);
+
         clickCounter = 0;
         txtViewLevel.setText("Stage: " + (currentStage + 1));
         totalClicks = allStages.get(currentStage).getClicks();
@@ -386,6 +424,42 @@ public class EasyMode extends AppCompatActivity {
         displayLabel = "";
 
         txtViewClickCounter.setText("Clicks Left: " + totalClicks);
+
+        if (allStages.get(currentStage).getGoal()%2==0){
+            operation1 = operations.get((int)(Math.random()*4));
+
+            boolean a =true;
+            while (a){
+                operation2 = operations.get((int)(Math.random()*4));
+                if (!(operation1.equals(operation2))){
+                    a = false;
+                }
+            }
+        } else {
+            operation1 = operations.get(0);
+            operation2 = operations.get(1);
+        }
+
+
+        txtViewOperation.setText(operation1 + " or\n" + operation2);
+
+        if ((!operation1.equals("Addition")) && (!operation2.equals("Addition"))){
+            btnAdd.setAlpha(.4f);
+            btnAdd.setEnabled(false);
+        }
+        if ((!operation1.equals("Subtraction")) && (!operation2.equals("Subtraction"))){
+            btnSubtract.setAlpha(.4f);
+            btnSubtract.setEnabled(false);
+        }
+        if ((!operation1.equals("Multiplication")) && (!operation2.equals("Multiplication"))){
+            btnMultiply.setAlpha(.4f);
+            btnMultiply.setEnabled(false);
+        }
+        if ((!operation1.equals("Division")) && (!operation2.equals("Division"))){
+            btnDivide.setAlpha(.4f);
+            btnDivide.setEnabled(false);
+        }
+
     }
 
     private void failScreen(){
@@ -403,7 +477,7 @@ public class EasyMode extends AppCompatActivity {
 
         txtViewTimer.setVisibility(View.GONE);
         txtViewPoints.setVisibility(View.GONE);
-
+        txtViewOperation.setVisibility(View.GONE);
 
         btn1.setVisibility(View.GONE);
         btn2.setVisibility(View.GONE);
@@ -438,6 +512,7 @@ public class EasyMode extends AppCompatActivity {
         btnShop.setVisibility(View.GONE);
         txtViewTimer.setVisibility(View.GONE);
         txtViewPoints.setVisibility(View.GONE);
+        txtViewOperation.setVisibility(View.GONE);
 
 
         btn1.setVisibility(View.GONE);
@@ -511,7 +586,7 @@ public class EasyMode extends AppCompatActivity {
 
         if (result == allStages.get(currentStage).getGoal() && result != Double.parseDouble(onlyDigits)) {
             allStages.get(currentStage).setAchievedGoal(true);
-            if (currentStage < 4) {
+            if (currentStage < allStages.size()-1) {
                 currentStage++;
                 setStuff();
                 Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT).show();
@@ -522,23 +597,26 @@ public class EasyMode extends AppCompatActivity {
             }
 
         } else {
-            System.out.println(result + "RESULT");
             if (result > allStages.get(currentStage).getGoal()) {
                 Toast.makeText(context, "Goal Overshot!", Toast.LENGTH_SHORT).show();
             } else if (result < allStages.get(currentStage).getGoal()) {
                 Toast.makeText(context, "Goal Undershot!", Toast.LENGTH_SHORT).show();
-            } else {
+            } else if (Double.parseDouble(onlyDigits) > allStages.get(currentStage).getGoal()){
+                Toast.makeText(context, "Goal Overshot!", Toast.LENGTH_SHORT).show();
+            } else if (Double.parseDouble(onlyDigits) < allStages.get(currentStage).getGoal()){
+                Toast.makeText(context, "Goal Undershot!", Toast.LENGTH_SHORT).show();
+            } else  {
                 Toast.makeText(context, "That's the same number!", Toast.LENGTH_SHORT).show();
             }
 
+
             displayLabel = "";
             clickCounter = 0;
-            points--;
             txtViewPoints.setText("Points: " + points);
 
         }
 
-        if (!allStages.get(4).getAchievedGoal()) {
+        if (!allStages.get(allStages.size()-1).getAchievedGoal()) {
             txtViewDisplay.setText(displayLabel);
             txtViewClickCounter.setText("Clicks Left: " + (totalClicks - clickCounter));
 

@@ -23,6 +23,8 @@ public class Shop extends AppCompatActivity {
     private Context context;
     private long timeLeft;
     private double goalNum;
+    private String highScoreText;
+    private int mode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,8 @@ public class Shop extends AppCompatActivity {
         currentStage = (getPts.getIntExtra("Current Stage", 0));
         timeLeft = (getPts.getLongExtra("Timer Time", 0));
         goalNum = getPts.getDoubleExtra("Goal Num", 0);
+        highScoreText = getPts.getStringExtra("High Score");
+        mode = getPts.getIntExtra("Mode", 0);
 
         shopBackBtn = findViewById(R.id.shopBack);
         moreTimeBtn = findViewById(R.id.moreTime);
@@ -82,17 +86,40 @@ public class Shop extends AppCompatActivity {
         shopBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goBack = new Intent(Shop.this, EasyMode.class);
-                goBack.putExtra("Points", points);
-                goBack.putExtra("Current Stage", currentStage);
-                goBack.putExtra("More Time", moreTime);
-                goBack.putExtra("Point Doubler", pointDoubler);
-                goBack.putExtra("More Btn Clicks", moreBtnClicks);
-                goBack.putExtra("More Time", moreTime);
-                goBack.putExtra("Timer Time", timeLeft);
-                goBack.putExtra("Goal Num", goalNum);
-                System.out.println(timeLeft + "JERE ");
-                startActivity(goBack);
+                if (mode == 1){
+                    Intent goBack = new Intent(Shop.this, EasyMode.class);
+                    goBack.putExtra("Points", points);
+                    goBack.putExtra("Current Stage", currentStage);
+                    goBack.putExtra("More Time", moreTime);
+                    goBack.putExtra("Point Doubler", pointDoubler);
+                    goBack.putExtra("More Btn Clicks", moreBtnClicks);
+                    goBack.putExtra("Timer Time", timeLeft);
+                    goBack.putExtra("Goal Num", goalNum);
+                    goBack.putExtra("High Score", highScoreText);
+                    startActivity(goBack);
+                } else if (mode == 2){
+                    Intent goBack = new Intent(Shop.this, HardMode.class);
+                    goBack.putExtra("Points", points);
+                    goBack.putExtra("Current Stage", currentStage);
+                    goBack.putExtra("More Time", moreTime);
+                    goBack.putExtra("Point Doubler", pointDoubler);
+                    goBack.putExtra("More Btn Clicks", moreBtnClicks);
+                    goBack.putExtra("Timer Time", timeLeft);
+                    goBack.putExtra("Goal Num", goalNum);
+                    goBack.putExtra("High Score", highScoreText);
+                    startActivity(goBack);
+                } else if (mode == 3){
+                    Intent goBack = new Intent(Shop.this, EndlessMode.class);
+                    goBack.putExtra("Points", points);
+                    goBack.putExtra("Current Stage", currentStage);
+                    goBack.putExtra("More Time", moreTime);
+                    goBack.putExtra("Point Doubler", pointDoubler);
+                    goBack.putExtra("More Btn Clicks", moreBtnClicks);
+                    goBack.putExtra("Timer Time", timeLeft);
+                    goBack.putExtra("Goal Num", goalNum);
+                    goBack.putExtra("High Score", highScoreText);
+                    startActivity(goBack);
+                }
             }
         });
 
