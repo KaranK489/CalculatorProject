@@ -12,16 +12,84 @@
         android:id="@+id/constraintDisplay2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Shop"
         android:textColor="@color/white"
         android:textSize="28sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/shopPoints"
+        app:layout_constraintStart_toStartOf="@+id/shopPoints"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/display3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="165dp"
+        android:layout_marginBottom="165dp"
+        android:text="Items"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/moreBtnClicks"
+        app:layout_constraintEnd_toEndOf="@+id/pointDoubler"
+        app:layout_constraintStart_toStartOf="@+id/pointDoubler"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/display4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="25dp"
+        android:text="Cost"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/display2"
+        app:layout_constraintEnd_toEndOf="@+id/display2" />
+
+    <TextView
+        android:id="@+id/display2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="42dp"
+        android:text="3 Points"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintStart_toEndOf="@+id/pointDoubler"
+        app:layout_constraintTop_toTopOf="@+id/pointDoubler" />
+
+    <TextView
+        android:id="@+id/display5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="42dp"
+        android:text="3 Points"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/moreBtnClicks"
+        app:layout_constraintTop_toBottomOf="@+id/display2" />
+
+    <TextView
+        android:id="@+id/display6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="49dp"
+        android:text="3 Points"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/moreTime"
+        app:layout_constraintTop_toBottomOf="@+id/display5" />
 
     <TextView
         android:id="@+id/shopPoints"
@@ -33,68 +101,68 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.137" />
-
-    <Button
-        android:id="@+id/moreBtnClicks"
-        android:layout_width="182dp"
-        android:layout_height="120dp"
-        android:background="@drawable/calculator_custom_button"
-        android:text="+2 Button CLicks\n (3 Points)"
-        android:textColor="#FFFFFF"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.479"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.633" />
+        app:layout_constraintVertical_bias="0.111" />
 
     <Button
         android:id="@+id/shopBack"
         android:layout_width="169dp"
         android:layout_height="83dp"
+        android:layout_marginBottom="64dp"
         android:background="@drawable/calculator_custom_button"
         android:text="Go back"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.901" />
-
-    <Button
-        android:id="@+id/moreTime"
-        android:layout_width="182dp"
-        android:layout_height="94dp"
-        android:background="@drawable/calculator_custom_button"
-        android:text="+30 Sec \n (3 Points)"
-        android:textColor="#FFFFFF"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.474"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.428" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/pointDoubler"
-        android:layout_width="182dp"
-        android:layout_height="78dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="21dp"
         android:background="@drawable/calculator_custom_button"
-        android:text="2x Points\n (3 Points)"
+        android:text="2x Points\nMultiplier"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintBottom_toTopOf="@+id/moreBtnClicks"
+        app:layout_constraintEnd_toStartOf="@+id/display2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.259" />
+        app:layout_constraintTop_toBottomOf="@+id/display3" />
+
+    <Button
+        android:id="@+id/moreBtnClicks"
+        android:layout_width="0dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="305dp"
+        android:layout_marginEnd="61dp"
+        android:background="@drawable/calculator_custom_button"
+        android:text="+2 Button CLicks"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toStartOf="@+id/display5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/moreTime"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/calculator_custom_button"
+        android:text="+30 Sec"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toStartOf="@+id/display6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moreBtnClicks" />
 </androidx.constraintlayout.widget.ConstraintLayout>
