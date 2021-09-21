@@ -22,7 +22,7 @@ public class EndlessMode extends AppCompatActivity {
     private int totalClicks = 0;
     private String displayLabel = "";
 
-    private int points = 0;
+    private int points = 10;
 
 
     //FROM 0-4, TO MATCH WITH ALLSTAGES ARRAYLIST (CHANGE LATER MAYBE IDK, BUT EASIER TO MATCH WITH ARRAYLIST FOR NOW)
@@ -35,6 +35,7 @@ public class EndlessMode extends AppCompatActivity {
     private Context context;
     ;
     private int numSymbolsClicked = 0;
+
 
 
 
@@ -300,7 +301,7 @@ public class EndlessMode extends AppCompatActivity {
         currentStage++;
         setStuff();
         Intent getShopValues = getIntent();
-        reSetUIValues(getShopValues.getIntExtra("Points", 0), getShopValues.getIntExtra("Current Stage", 0),  getShopValues.getDoubleExtra("Goal Num", 0));
+        reSetUIValues(getShopValues.getIntExtra("Points", 10), getShopValues.getIntExtra("Current Stage", 0),  getShopValues.getDoubleExtra("Goal Num", 0));
         applyPowerups(getShopValues.getBooleanExtra("Point Doubler", false), getShopValues.getBooleanExtra("More Btn Clicks", false));
 
 
